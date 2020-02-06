@@ -1,72 +1,185 @@
 package projectCode20280;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class SinglyLinkedList<E> implements List<E> {
 
 	private class Node<E> {
-		/// TODO
+		// node contains type initialized as and next node
+		E data;
+		Node next;
+
+		Node(E inp) {
+			data = inp;
+			next = null;
+		}
 	}
-	
+
+	// first node in list
+	Node head;
+
+	// if head.next is null, and head data is null, no pointer is next, so list is empty
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
+		if (head.next == null && head.data == null) {
+			return true;
+		}
 		return false;
 	}
 
+	// traverse list until index i
+	// return null if does not exist
 	@Override
 	public E get(int i) {
-		// TODO Auto-generated method stub
+		if (!isEmpty()) {
+			// get first two nodes
+			Node cur = head;
+			Node next = head.next;
+
+			// iterate until desired index at which to get
+			for (int j = 0; j < i; j++) {
+				cur = next;
+				next = next.next;
+			}
+			return (E)cur.data;
+		}
+		// null if no value
 		return null;
 	}
 
+	// add e at index i
 	@Override
 	public void add(int i, E e) {
-		// TODO Auto-generated method stub
+		// node to add
+		Node add = new Node(e);
+		// if not empty, iterate through the list until i
+		if (!isEmpty()) {
+			Node cur = head;
+			Node next = head.next;
+			for (int j = 0; j < i; j++) {
+				cur = cur.next;
+				next = next.next;
+			}
 
+			// insert node add
+			cur.next = add;
+			add.next = next;
+		} else {
+			// if list is empty, make head node add
+			head = add;
+		}
 	}
 
+	// remove node at index i
 	@Override
 	public E remove(int i) {
-		// TODO Auto-generated method stub
-		return null;
+		E data = null;
+		if(!isEmpty()) {
+			Node cur = head;
+			Node next = head.next;
+			for (int j = 0; j < i; j++) {
+				cur = cur.next;
+				next = next.next;
+			}
+			data = (E)next.data;
+			cur.next = next.next;
+		}
+		return data;
 	}
 
 	@Override
 	public Iterator<E> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ListIterator();
 	}
 
+	private class ListIterator  implements Iterator<E>
+	{
+		Node<E> cur;
+
+		public ListIterator()
+		{
+			cur = head;
+		}
+
+		public boolean hasNext()
+		{
+			return cur != null;
+		}
+
+		public E next()
+		{
+			E res = cur.data;
+			cur = cur.next;
+			return res;
+		}
+	}
+
+	// count nodes until end of list, return count
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		Node cur = head;
+		int count = 0;
+		while(cur.next != null) {
+			cur = cur.next;
+			count++;
+		}
+		return count;
 	}	
 	
 
+	// make head of list head.next
+	// return head
 	@Override
 	public E removeFirst() {
-		// TODO Auto-generated method stub
-		return null;
+		E value = (E)head.data;
+		head = head.next;
+		return value;
 	}
 
+	// makes tail of list the second to last element
 	@Override
 	public E removeLast() {
-		// TODO Auto-generated method stub
-		return null;
+		Node cur = head;
+		Node prev = null;
+		while(cur.next != null) {
+			prev = cur;
+			cur = cur.next;
+		}
+		prev.next = null;
+		return (E)cur.data;
 	}
 
+	// adds node to head
 	@Override
 	public void addFirst(E e) {
-		// TODO Auto-generated method stub
-		
+		Node add = new Node(e);
+		add.next = head;
+		head = add;
+	}
+
+	// add node to tail
+	@Override
+	public void addLast(E e) {
+		Node add = new Node(e);
+		Node cur = head;
+		while(cur.next != null) {
+			cur = cur.next;
+		}
+		cur.next = add;
+		// empty list
 	}
 
 	@Override
-	public void addLast(E e) {
-		// TODO Auto-generated method stub
-		
+	public String toString() {
+		String ret = "[";
+		Node cur = head;
+		while(cur.next != null) {
+			ret += cur.data + ", ";
+			cur = cur.next;
+		}
+		ret += cur.data + "]";
+		return ret;
 	}
 	
 	public static void main(String[] args) {
@@ -87,7 +200,7 @@ public class SinglyLinkedList<E> implements List<E> {
 
 		sll.remove(2);
 		System.out.println(sll.toString());
-		
+
 		for (String s : sll) {
 			System.out.print(s + ", ");
 		}

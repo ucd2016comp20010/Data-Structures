@@ -12,4 +12,22 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
+  <component name="WindowStateProjectService">
+    <state x="310" y="29" key="CommitChangelistDialog2" timestamp="1580991573652">
+      <screen x="0" y="23" width="1440" height="811" />
+    </state>
+    <state x="310" y="29" key="CommitChangelistDialog2/0.23.1440.811@0.23.1440.811" timestamp="1580991573652" />
+    <state x="397" y="301" key="Github.CreatePullRequestDialog" timestamp="1580991626497">
+      <screen x="0" y="23" width="1440" height="811" />
+    </state>
+    <state x="397" y="301" key="Github.CreatePullRequestDialog/0.23.1440.811@0.23.1440.811" timestamp="1580991626497" />
+    <state x="567" y="338" key="Github.Dialog.Accounts.Choose" timestamp="1580991619030">
+      <screen x="0" y="23" width="1440" height="811" />
+    </state>
+    <state x="567" y="338" key="Github.Dialog.Accounts.Choose/0.23.1440.811@0.23.1440.811" timestamp="1580991619030" />
+    <state x="320" y="167" key="Vcs.Push.Dialog.v2" timestamp="1580991575470">
+      <screen x="0" y="23" width="1440" height="811" />
+    </state>
+    <state x="320" y="167" key="Vcs.Push.Dialog.v2/0.23.1440.811@0.23.1440.811" timestamp="1580991575470" />
+  </component>
 </project>

@@ -4,102 +4,189 @@ import java.util.Iterator;
 
 public class CircularlyLinkedList<E> implements List<E> {
 
-	private class Node<E> {
+    private class Node<E> {
+        // node contains type initialized as and next node
+        E data;
+        Node next = head;
 
-	}
+        Node(E inp) {
+            data = inp;
+            next = null;
+        }
+    }
 
-	@Override
-	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    Node head;
 
-	@Override
-	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public int size() {
+        if (head.next == head) return 0;
+        Node cur = head;
+        int count = 0;
+        while (cur.next != head) {
+            count++;
+        }
+        return count;
+    }
 
-	@Override
-	public E get(int i) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public boolean isEmpty() {
+        return size() == 0;
+    }
 
-	@Override
-	public void add(int i, E e) {
-		// TODO Auto-generated method stub
+    @Override
+    public E get(int i) {
+        if (!isEmpty()) {
+            // get first two nodes
+            Node cur = head;
+            Node next = head.next;
 
-	}
+            // iterate until desired index at which to get
+            for (int j = 0; j < i; j++) {
+                cur = next;
+                next = next.next;
+            }
+            return (E) cur.data;
+        }
+        // null if no value
+        return null;
+    }
 
-	@Override
-	public E remove(int i) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public void add(int i, E e) {
+        // node to add
+        Node add = new Node(e);
+        // if not empty, iterate through the list until i
+        if (!isEmpty()) {
+            Node cur = head;
+            Node next = head.next;
+            for (int j = 0; j < i; j++) {
+                cur = cur.next;
+                next = next.next;
+            }
 
-	@Override
-	public E removeFirst() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+            // insert node add
+            cur.next = add;
+            add.next = next;
+        } else {
+            // if list is empty, make head node add
+            head = add;
+        }
+    }
 
-	@Override
-	public E removeLast() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public E remove(int i) {
+        E data = null;
+        if (!isEmpty()) {
+            Node cur = head;
+            Node next = head.next;
+            for (int j = 0; j < i; j++) {
+                cur = cur.next;
+                next = next.next;
+            }
+            data = (E) next.data;
+            cur.next = next.next;
+        }
+        return data;
+    }
 
-	@Override
-	public Iterator<E> iterator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public E removeFirst() {
+        E value = (E) head.data;
+        head = head.next;
+        return value;
+    }
 
-	@Override
-	public void addFirst(E e) {
-		// TODO Auto-generated method stub
+    @Override
+    public E removeLast() {
+        Node cur = head;
+        Node prev = null;
+        while (cur.next != null) {
+            prev = cur;
+            cur = cur.next;
+        }
+        prev.next = head;
+        return (E) cur.data;
+    }
 
-	}
+    @Override
+    public Iterator<E> iterator() {
+        return new ListIterator();
+    }
 
-	@Override
-	public void addLast(E e) {
-		// TODO Auto-generated method stub
+    private class ListIterator implements Iterator<E> {
+        Node<E> cur;
 
-	}
+        public ListIterator() {
+            cur = head;
+        }
 
-	public void rotate() {
-				
-	}
-	
-	
-	public static void main(String[] args) {
-		CircularlyLinkedList<Integer> ll = new CircularlyLinkedList<Integer>();
-		for(int i = 10; i < 20; ++i) {
-			ll.addLast(i);
-		}
+        public boolean hasNext() {
+            return cur != null;
+        }
 
-		System.out.println(ll);
+        public E next() {
+            E res = cur.data;
+            cur = cur.next;
+            return res;
+        }
+    }
 
-		ll.removeFirst();
-		System.out.println(ll);
+    @Override
+    public void addFirst(E e) {
+        Node add = new Node(e);
+        add.next = head;
+        head = add;
 
-		ll.removeLast();
+    }
 
-		ll.rotate();
-		System.out.println(ll);
+    @Override
+    public void addLast(E e) {
+        if (size() != 0) {
+            Node add = new Node(e);
+            Node cur = head;
+            while (cur.next != null) {
+                cur = cur.next;
+            }
+            cur.next = add;
+            cur.next.next = head;
+            // empty list
+        } else {
+            addFirst(e);
+        }
+    }
 
-		ll.removeFirst();
-		ll.rotate();
-		System.out.println(ll);
+    public void rotate() {
 
-		ll.removeLast();
-		ll.rotate();
-		System.out.println(ll);
+    }
 
-		for (Integer e : ll) {
-			System.out.println("value: " + e);
-		}
 
-	}
+    public static void main(String[] args) {
+        CircularlyLinkedList<Integer> ll = new CircularlyLinkedList<Integer>();
+        for (int i = 10; i < 20; ++i) {
+            ll.addLast(i);
+        }
+
+        System.out.println(ll);
+
+        ll.removeFirst();
+        System.out.println(ll);
+
+        ll.removeLast();
+
+        ll.rotate();
+        System.out.println(ll);
+
+        ll.removeFirst();
+        ll.rotate();
+        System.out.println(ll);
+
+        ll.removeLast();
+        ll.rotate();
+        System.out.println(ll);
+
+        for (Integer e : ll) {
+            System.out.println("value: " + e);
+        }
+
+    }
 }

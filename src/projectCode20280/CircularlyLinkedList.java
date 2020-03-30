@@ -7,19 +7,20 @@ public class CircularlyLinkedList<E> implements List<E> {
     private class Node<E> {
         // node contains type initialized as and next node
         E data;
-        Node next = head;
+        Node next;
 
         Node(E inp) {
             data = inp;
-            next = null;
+            next = head;
         }
     }
 
     Node head;
 
+
     @Override
     public int size() {
-        if (head.next == head) return 0;
+        if (head == null) return 0;
         Node cur = head;
         int count = 0;
         while (cur.next != head) {
@@ -136,16 +137,19 @@ public class CircularlyLinkedList<E> implements List<E> {
         Node add = new Node(e);
         add.next = head;
         head = add;
-
     }
 
     @Override
     public void addLast(E e) {
-        if (size() != 0) {
+        if (!isEmpty()) {
+            System.out.println("add");
             Node add = new Node(e);
             Node cur = head;
-            while (cur.next != null) {
+            int c = 0;
+            while (cur != null) {
                 cur = cur.next;
+                c++;
+                System.out.println(c);
             }
             cur.next = add;
             cur.next.next = head;
@@ -162,8 +166,10 @@ public class CircularlyLinkedList<E> implements List<E> {
 
     public static void main(String[] args) {
         CircularlyLinkedList<Integer> ll = new CircularlyLinkedList<Integer>();
-        for (int i = 10; i < 20; ++i) {
+        for (int i = 10; i < 20; i++) {
             ll.addLast(i);
+            System.out.println(i);
+
         }
 
         System.out.println(ll);

@@ -2,9 +2,11 @@ package projectCode20280;
 
 public class ArrayQueue<E> implements Queue<E> {
 
+	public ArrayQueue(E data) {
+
+	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override

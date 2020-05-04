@@ -10,39 +10,31 @@ package projectCode20280;
 
 public class LinkedCircularQueue<E> implements Queue<E> {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
+	private CircularlyLinkedList<E> queue = new CircularlyLinkedList<>();
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return queue.size();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return queue.isEmpty();
 	}
 
 	@Override
 	public void enqueue(E e) {
-		// TODO Auto-generated method stub
-
+		queue.addLast(e);
 	}
 
 	@Override
 	public E first() {
-		// TODO Auto-generated method stub
-		return null;
+		return queue.get(0);
 	}
 
 	@Override
 	public E dequeue() {
-		// TODO Auto-generated method stub
-		return null;
+		return queue.removeFirst();
 	}
 
 }

@@ -1,6 +1,7 @@
 package projectCode20280;
 
 import java.util.Comparator;
+import java.util.TreeMap;
 
 /**
  * An implementation of a sorted map using an AVL tree.
@@ -35,8 +36,7 @@ public class AVLTreeMap<K, V> extends TreeMap<K, V> {
 	 * Recomputes the height of the given position based on its children's heights.
 	 */
 	protected void recomputeHeight(Position<Entry<K, V>> p) {
-		// TODO
-
+		tree.setAux(p, 1 + Math.max(height(left(p)), height(right(p))));
 	}
 
 	/** Returns whether a position has balance factor between -1 and 1 inclusive. */

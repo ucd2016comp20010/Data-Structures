@@ -1,15 +1,13 @@
 package projectCode20280;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import org.testng.annotations.AfterTest;
 
 import java.util.ArrayList;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ChainHashMapTest {
-
-
-
 	@Test
 	void testSize() {
 		ChainHashMap<Integer, String> map = new ChainHashMap<Integer, String>();

@@ -2,11 +2,6 @@ package projectCode20280;
 
 public class LinkedDeque<E> implements Deque<E> {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
 	@Override
 	public int size() {
 		// TODO Auto-generated method stub

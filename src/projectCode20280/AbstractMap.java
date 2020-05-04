@@ -29,7 +29,7 @@ public abstract class AbstractMap<K, V> implements Map<K, V> {
 	 * A concrete implementation of the Entry interface to be used within a Map
 	 * implementation.
 	 */
-	protected static class MapEntry<K, V> implements Entry<K, V> {
+	protected abstract static class MapEntry<K, V> implements Entry<K, V> {
 		private K k; // key
 		private V v; // value
 

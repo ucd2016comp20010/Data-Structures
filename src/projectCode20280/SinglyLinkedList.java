@@ -181,6 +181,28 @@ public class SinglyLinkedList<E> implements List<E> {
 		ret += cur.data + "]";
 		return ret;
 	}
+
+	public E first() {
+		if (isEmpty()) {
+			return null;
+		}
+
+		return (E) head.data;
+	}
+
+	public E last() {
+		if (isEmpty()) {
+			return null;
+		}
+
+		SinglyLinkedList.Node temp = head;
+
+		while (temp.next != null) {
+			temp = temp.next;
+		}
+
+		return (E) temp.data;
+	}
 	
 	public static void main(String[] args) {
 		String[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");

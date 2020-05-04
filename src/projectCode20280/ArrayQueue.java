@@ -1,7 +1,5 @@
 package projectCode20280;
 
-import java.util.Objects;
-
 public class ArrayQueue<E> implements Queue<E> {
 
     private E data[];

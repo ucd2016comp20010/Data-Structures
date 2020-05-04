@@ -85,7 +85,9 @@ public class UnsortedTableMap<K, V> extends AbstractMap<K, V> {
             table.add(new MapEntry<>(key, value));
             return null;
         } else {
-            return table.get(i).setValue(value);
+            V val = table.get(i).getValue();
+            table.set(i, new MapEntry<>(key, value));
+            return val;
         }
     }
 
@@ -152,4 +154,5 @@ public class UnsortedTableMap<K, V> extends AbstractMap<K, V> {
     public Iterable<Entry<K, V>> entrySet() {
         return new EntryIterable();
     }
+
 }

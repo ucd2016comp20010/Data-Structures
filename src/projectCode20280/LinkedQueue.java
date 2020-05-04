@@ -29,4 +29,17 @@ public class LinkedQueue<E> implements Queue<E> {
 		return queue.removeFirst();
 	}
 
+	@Override
+	public String toString() {
+		String ret = "[";
+		for(E x : queue) {
+			ret += x + ", ";
+		}
+
+		ret = ret.substring(0, ret.length()-2);
+		ret += "]";
+
+		return ret;
+	}
+
 }

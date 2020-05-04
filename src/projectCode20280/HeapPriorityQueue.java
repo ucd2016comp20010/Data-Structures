@@ -269,4 +269,17 @@ public class HeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, V> {
                 System.out.println("Invalid right child relationship");
         }
     }
+
+    @Override
+    public String toString() {
+        String ret = "[";
+        for(Entry<K,V> x : heap) {
+            ret += x.getValue() + ", ";
+        }
+
+        ret = ret.substring(0, ret.length()-2);
+        ret += "]";
+
+        return ret;
+    }
 }

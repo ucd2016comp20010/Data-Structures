@@ -76,6 +76,7 @@ public class ChainHashMap<K, V> extends AbstractHashMap<K, V> {
         int old = x.size();
         V ret = x.put(k, v);
 
+        n += (x.size() - old);
         return ret;
     }
 
@@ -98,6 +99,7 @@ public class ChainHashMap<K, V> extends AbstractHashMap<K, V> {
         int old = x.size();
         V ret = x.remove(k);
 
+        n -= old - x.size();
         return ret;
     }
 
@@ -129,9 +131,9 @@ public class ChainHashMap<K, V> extends AbstractHashMap<K, V> {
         m.put(11, "Eleven");
         m.put(20, "Twenty");
 
-        System.out.println("m: " + m);
+        System.out.println("m: " + m.entrySet());
 
         m.remove(11);
-        System.out.println("m: " + m);
+        System.out.println("m: " + m.entrySet());
     }
 }

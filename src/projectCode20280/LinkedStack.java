@@ -62,4 +62,17 @@ public class LinkedStack<E> implements Stack<E> {
         return list.removeFirst();
     }
 
+    @Override
+    public String toString() {
+        String ret = "[";
+        for(E x : list) {
+            ret += x + ", ";
+        }
+
+        ret = ret.substring(0, ret.length()-2);
+        ret += "]";
+
+        return ret;
+    }
+
 }

@@ -33,7 +33,8 @@ public class DoublyLinkedList<E> implements List<E> {
         int count = 0;
         Node cur = head;
         if (head == null) return 0;
-        while (cur.next != null) {
+
+        while (cur != null) {
             count++;
             cur = cur.next;
         }
@@ -58,7 +59,7 @@ public class DoublyLinkedList<E> implements List<E> {
     public void add(int i, E e) {
         Node add = new Node(e);
         Node cur = head;
-        for (int j = 0; j < i; j++) {
+        for (int j = 0; j < i-1; j++) {
             cur = cur.next;
         }
         add.next = cur.next;
@@ -69,7 +70,7 @@ public class DoublyLinkedList<E> implements List<E> {
     @Override
     public E remove(int i) {
         Node cur = head;
-        for (int x = 0; x < i; x++) {
+        for (int x = 0; x < i-1; x++) {
             cur = cur.next;
         }
         E x = (E) cur.next.data;

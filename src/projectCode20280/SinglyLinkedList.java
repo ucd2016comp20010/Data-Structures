@@ -22,10 +22,7 @@ public class SinglyLinkedList<E> implements List<E> {
 	// if head.next is null, and head data is null, no pointer is next, so list is empty
 	@Override
 	public boolean isEmpty() {
-		if (head.next == null && head.data == null) {
-			return true;
-		}
-		return false;
+		return size() == 0;
 	}
 
 	// traverse list until index i
@@ -57,7 +54,7 @@ public class SinglyLinkedList<E> implements List<E> {
 		if (!isEmpty()) {
 			Node cur = head;
 			Node next = head.next;
-			for (int j = 0; j < i; j++) {
+			for (int j = 0; j < i-1; j++) {
 				cur = cur.next;
 				next = next.next;
 			}
@@ -78,7 +75,7 @@ public class SinglyLinkedList<E> implements List<E> {
 		if(!isEmpty()) {
 			Node cur = head;
 			Node next = head.next;
-			for (int j = 0; j < i; j++) {
+			for (int j = 0; j < i-1; j++) {
 				cur = cur.next;
 				next = next.next;
 			}
@@ -120,10 +117,16 @@ public class SinglyLinkedList<E> implements List<E> {
 	public int size() {
 		Node cur = head;
 		int count = 0;
-		while(cur.next != null) {
+
+		if (cur == null) {
+			return 0;
+		}
+
+		while(cur != null) {
 			cur = cur.next;
 			count++;
 		}
+
 		return count;
 	}	
 	
@@ -161,13 +164,18 @@ public class SinglyLinkedList<E> implements List<E> {
 	// add node to tail
 	@Override
 	public void addLast(E e) {
-		Node add = new Node(e);
-		Node cur = head;
-		while(cur.next != null) {
-			cur = cur.next;
+		Node newNode = new Node<>(e);
+
+		Node temp = head;
+
+		if (isEmpty()) {
+			head = newNode;
+		} else {
+			while (temp.next != null) {
+				temp = temp.next;
+			}
+			temp.next = newNode;
 		}
-		cur.next = add;
-		// empty list
 	}
 
 	@Override

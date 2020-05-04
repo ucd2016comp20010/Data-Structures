@@ -108,15 +108,16 @@ public class ChainHashMap<K, V> extends AbstractHashMap<K, V> {
      */
     @Override
     public Iterable<Entry<K, V>> entrySet() {
-        ArrayList<Entry<K,V>> ret = new ArrayList<>();
+        ArrayList<Entry<K, V>> ret = new ArrayList<>();
 
-        for (int h=0; h < capacity; h++) {
-            if (table[h] != null) {
-                for (Entry<K, V> entry : table[h].entrySet()) {
+        for (int i = 0; i < capacity; i++) {
+            if (table[i] != null) {
+                for (Entry<K, V> entry : table[i].entrySet()) {
                     ret.add(entry);
                 }
             }
         }
+
         return ret;
     }
 

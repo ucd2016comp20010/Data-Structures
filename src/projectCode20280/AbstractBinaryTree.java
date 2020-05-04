@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  */
 public abstract class AbstractBinaryTree<E> extends AbstractTree<E>
-                                             implements BinaryTree<E> {
+        implements BinaryTree<E> {
 
   /**
    * Returns the Position of p's sibling (or null if no sibling exists).
@@ -98,4 +98,3 @@ public abstract class AbstractBinaryTree<E> extends AbstractTree<E>
     return inorder();
   }
 }
-

@@ -12,7 +12,6 @@ public class BalanceableBinaryTree<K, V> extends LinkedBinaryTree<Entry<K, V>> {
         }
 
         public int getAux() {
-
             return aux;
         }
 
@@ -31,15 +30,23 @@ public class BalanceableBinaryTree<K, V> extends LinkedBinaryTree<Entry<K, V>> {
     }
 
     // Override node factory function to produce a BSTNode (rather than a Node)
-    protected Node<Entry<K, V>> createNode(E e, Node<Entry<K, V>> parent, Node<Entry<K, V>> left, Node<Entry<K, V>> right) {
+    @Override
+    protected Node<Entry<K, V>> createNode(Entry<K, V> e, Node<Entry<K, V>> parent, Node<Entry<K, V>> left,
+                                           Node<Entry<K, V>> right) {
         return new BSTNode<>(e, parent, left, right);
     }
 
-    /**
-     * Relinks a parent node with its oriented child node.
-     */
+    /** Relinks a parent node with its oriented child node. */
     private void relink(Node<Entry<K, V>> parent, Node<Entry<K, V>> child, boolean makeLeftChild) {
-        // TODO
+        // set parent of child to parent node
+        child.setParent(parent);
+
+        // set which child to make it
+        if (makeLeftChild) {
+            parent.setLeft(child);
+        } else {
+            parent.setRight(child);
+        }
     }
 
     /**
@@ -53,16 +60,43 @@ public class BalanceableBinaryTree<K, V> extends LinkedBinaryTree<Entry<K, V>> {
      *       / \                    / \
      *      t0  t1                 t1  t2
      * </pre>
-     * <p>
+     *
      * Caller should ensure that p is not the root.
      */
     public void rotate(Position<Entry<K, V>> p) {
-        // TODO
+        // three nodes x,y,z
+        // x is p
+        // y is parent of x
+        // z is parent of y
+        Node<Entry<K, V>> x = validate(p);
+        Node<Entry<K, V>> y = x.getParent();
+        Node<Entry<K, V>> z = y.getParent();
+
+        // if z is null, x is root
+        if (z == null) {
+            root = x;
+            x.setParent(null);
+        } else {
+            // relink
+            relink(z, x, y == z.getLeft());
+        }
+
+        //  rotate x,y
+        if (x == y.getLeft()) {
+            // relink
+            relink(y, x.getRight(), true);
+            relink(x, y, false);
+        } else {
+            // relink
+            relink(y, x.getLeft(), false);
+            relink(x, y, true);
+        }
     }
 
     /**
+     *
      * Returns the Position that becomes the root of the restructured subtree.
-     * <p>
+     *
      * Assumes the nodes are in one of the following configurations:
      *
      * <pre>
@@ -74,7 +108,7 @@ public class BalanceableBinaryTree<K, V> extends LinkedBinaryTree<Entry<K, V>> {
      *        /  \        /  \               /  \              /  \
      *       t2  t3      t0  t1             t1  t2            t1  t2
      * </pre>
-     * <p>
+     *
      * The subtree will be restructured so that the node with key b becomes its
      * root.
      *
@@ -85,11 +119,23 @@ public class BalanceableBinaryTree<K, V> extends LinkedBinaryTree<Entry<K, V>> {
      *      / \     / \
      *     t0  t1  t2  t3
      * </pre>
-     * <p>
+     *
      * Caller should ensure that x has a grandparent.
      */
     public Position<Entry<K, V>> restructure(Position<Entry<K, V>> x) {
-        // TODO
-        return null;
+        // two new nodes y, z
+        Position<Entry<K, V>> y = parent(x);
+        Position<Entry<K, V>> z = parent(y);
+
+        //if allignments match
+        if ((x == right(y)) == (y == right(z))) {
+            rotate(y);
+            return y;
+        } else {
+            // if opposite allignments
+            rotate(x);
+            rotate(x);
+            return x;
+        }
     }
-} 
+}

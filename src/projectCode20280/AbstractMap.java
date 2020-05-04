@@ -16,7 +16,7 @@ public abstract class AbstractMap<K, V> implements Map<K, V> {
 
 	/**
 	 * Tests whether the map is empty.
-	 * 
+	 *
 	 * @return true if the map is empty, false otherwise
 	 */
 	@Override
@@ -29,7 +29,7 @@ public abstract class AbstractMap<K, V> implements Map<K, V> {
 	 * A concrete implementation of the Entry interface to be used within a Map
 	 * implementation.
 	 */
-	protected abstract static class MapEntry<K, V> implements Entry<K, V> {
+	protected static class MapEntry<K, V> implements Entry<K, V> {
 		private K k; // key
 		private V v; // value
 
@@ -63,6 +63,10 @@ public abstract class AbstractMap<K, V> implements Map<K, V> {
 			return "<" + k + ", " + v + ">";
 		}
 
+		@Override
+		public int compareTo(Entry<K, V> o) {
+			return 0;
+		}
 	} // ----------- end of nested MapEntry class -----------
 
 	// Provides support for keySet() and values() methods, based upon

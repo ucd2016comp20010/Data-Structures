@@ -10,31 +10,31 @@ package projectCode20280;
 
 public class LinkedCircularQueue<E> implements Queue<E> {
 
-	private CircularlyLinkedList<E> queue = new CircularlyLinkedList<>();
+    private CircularlyLinkedList<E> queue = new CircularlyLinkedList<>();
 
-	@Override
-	public int size() {
-		return queue.size();
-	}
+    @Override
+    public int size() {
+        return queue.size();
+    }
 
-	@Override
-	public boolean isEmpty() {
-		return queue.isEmpty();
-	}
+    @Override
+    public boolean isEmpty() {
+        return queue.isEmpty();
+    }
 
-	@Override
-	public void enqueue(E e) {
-		queue.addLast(e);
-	}
+    @Override
+    public void enqueue(E e) {
+        queue.addLast(e);
+    }
 
-	@Override
-	public E first() {
-		return queue.get(0);
-	}
+    @Override
+    public E first() {
+        return queue.get(0);
+    }
 
-	@Override
-	public E dequeue() {
-		return queue.removeFirst();
-	}
+    @Override
+    public E dequeue() {
+        return queue.removeFirst();
+    }
 
 }

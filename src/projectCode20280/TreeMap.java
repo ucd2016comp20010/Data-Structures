@@ -260,8 +260,9 @@ public class TreeMap<K, V> extends AbstractSortedMap<K, V> {
      */
     @Override
     public Entry<K, V> firstEntry() {
-        if (isEmpty())
+        if (isEmpty()) {
             return null;
+        }
         return treeMin(root()).getElement();
     }
 
@@ -457,7 +458,7 @@ public class TreeMap<K, V> extends AbstractSortedMap<K, V> {
      */
     @Override
     public Iterable<Entry<K, V>> subMap(K fromKey, K toKey) throws IllegalArgumentException {
-       // TODO
+        // TODO
         return null;
     }
 

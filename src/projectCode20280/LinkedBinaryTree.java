@@ -415,6 +415,11 @@ public class LinkedBinaryTree<E extends Comparable<E>> extends AbstractBinaryTre
         return sb.toString();
     }
 
+    public void createLevelOrder(E x[]) {
+
+
+    }
+
     public static void main(String[] args) {
         LinkedBinaryTree<Integer> bt = new LinkedBinaryTree<Integer>();
 

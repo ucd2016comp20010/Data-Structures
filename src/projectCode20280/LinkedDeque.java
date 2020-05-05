@@ -2,52 +2,59 @@ package projectCode20280;
 
 public class LinkedDeque<E> implements Deque<E> {
 
+	DoublyLinkedList<E> deque = new DoublyLinkedList();
+
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return deque.size();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return size() == 0;
 	}
 
 	@Override
 	public E first() {
-		// TODO Auto-generated method stub
-		return null;
+		return deque.get(0);
 	}
 
 	@Override
 	public E last() {
-		// TODO Auto-generated method stub
-		return null;
+		return deque.get(deque.size()-1);
 	}
 
 	@Override
 	public void addFirst(E e) {
-		// TODO Auto-generated method stub
-		
+		deque.addFirst(e);
 	}
 
 	@Override
 	public void addLast(E e) {
-		// TODO Auto-generated method stub
-		
+		deque.addLast(e);
 	}
 
 	@Override
 	public E removeFirst() {
-		// TODO Auto-generated method stub
-		return null;
+		return deque.removeFirst();
 	}
 
 	@Override
 	public E removeLast() {
-		// TODO Auto-generated method stub
-		return null;
+		return deque.removeLast();
+	}
+
+	@Override
+	public String toString() {
+		String ret = "[";
+		for(E x : deque) {
+			ret += x + ", ";
+		}
+
+		ret = ret.substring(0, ret.length()-2);
+		ret += "]";
+
+		return ret;
 	}
 
 }

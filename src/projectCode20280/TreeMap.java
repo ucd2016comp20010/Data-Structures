@@ -2,8 +2,6 @@ package projectCode20280;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -227,7 +225,7 @@ public class TreeMap<K, V> extends AbstractSortedMap<K, V> {
             return null;
         } else {
             // else
-            V perv = p.getElement().getValue();
+            V prev = p.getElement().getValue();
             // if both children are internal nodes
             if (isInternal(left(p)) && isInternal(right(p))) {
                 Position<Entry<K, V>> repl = treeMax(left(p));
@@ -247,7 +245,7 @@ public class TreeMap<K, V> extends AbstractSortedMap<K, V> {
             remove(leaf);
             remove(p);
 
-            return perv;
+            return prev;
         }
     }
 
@@ -447,6 +445,24 @@ public class TreeMap<K, V> extends AbstractSortedMap<K, V> {
         return ret;
     }
 
+    public String toString() {
+        // new arraylist of size size()
+        String ret = "[";
+
+        // foreach in tree
+        for (Position<Entry<K, V>> p : tree.inorder()) {
+            // if internal node, add element to list
+            if (isInternal(p)) {
+                ret += (p.getElement().getValue()) + ", ";
+            }
+        }
+
+        ret = ret.substring(0, ret.length() - 2);
+        ret += "]";
+        // return
+        return ret;
+    }
+
     /**
      * Returns an iterable containing all entries with keys in the range from
      * <code>fromKey</code> inclusive to <code>toKey</code> exclusive.
@@ -458,8 +474,46 @@ public class TreeMap<K, V> extends AbstractSortedMap<K, V> {
      */
     @Override
     public Iterable<Entry<K, V>> subMap(K fromKey, K toKey) throws IllegalArgumentException {
-        // TODO
-        return null;
+        // check both keys
+        checkKey(fromKey);
+        checkKey(toKey);
+
+        // arraylist to return
+        ArrayList<Entry<K, V>> ret = new ArrayList<>(size());
+
+        // if key comparison < 0, enter recursive routine
+        if (compare(fromKey, toKey) < 0)
+        {
+            // enter recursive
+            subMapHelper(fromKey, toKey, root(), ret);
+        }
+
+        // return
+        return ret;
+    }
+
+    // helper to fill submap recursively
+    private void subMapHelper(K fromKey, K toKey, Position<Entry<K, V>> p, ArrayList<Entry<K, V>> toRet) {
+        // only continue if internal node
+        if (isInternal(p)) {
+            // compare to fromKey (left)
+            if (compare(p.getElement(), fromKey) < 0) {
+                // recurse
+                subMapHelper(fromKey, toKey, right(p), toRet);
+            } else {
+                // else do left subtree first
+                subMapHelper(fromKey, toKey, left(p), toRet);
+
+                // if p is in the selection
+                if (compare(p.getElement(), toKey) < 0) {
+                    // add it to arraylist
+                    toRet.add(p.getElement());
+
+                    // enter right subtree next recursively
+                    subMapHelper(fromKey, toKey, right(p), toRet); // right subtree as well
+                }
+            }
+        }
     }
 
     // remainder of class is for debug purposes only

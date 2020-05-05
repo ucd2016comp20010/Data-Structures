@@ -15,9 +15,9 @@ public class LinkedBinaryTree<E extends Comparable<E>> extends AbstractBinaryTre
         private Node<E> left;
         private Node<E> right;
 
-        public Node(E e, Node<E> parent, Node<E> leftChild, Node<E> rightChild) {
+        public Node(E e, Node<E> par, Node<E> leftChild, Node<E> rightChild) {
             element = e;
-            parent = parent;
+            parent = par;
             left = leftChild;
             right = rightChild;
         }
@@ -54,6 +54,11 @@ public class LinkedBinaryTree<E extends Comparable<E>> extends AbstractBinaryTre
 
         public void setRight(Node<E> rightChild) {
             right = rightChild;
+        }
+
+        @Override
+        public String toString() {
+           return getElement().toString();
         }
     }
 
@@ -202,7 +207,6 @@ public class LinkedBinaryTree<E extends Comparable<E>> extends AbstractBinaryTre
 
     //recursively add Nodes to binary tree in proper position
     private Node<E> addRecursive(Node<E> p, E e) {
-        //TODO
         return null;
     }
 
@@ -359,15 +363,8 @@ public class LinkedBinaryTree<E extends Comparable<E>> extends AbstractBinaryTre
             throw new IllegalArgumentException("p has 2 children");
         }
 
-        // make temp child node
-        Node child = null;
+        Node<E> child = (node.getLeft() != null ? node.getLeft() : node.getRight() );
 
-        // assign node child
-        if (node.getLeft() == null) {
-            node.getRight();
-        } else {
-            node.getLeft();
-        }
 
         if (child != null) {
             // if not null, set parent
@@ -398,26 +395,37 @@ public class LinkedBinaryTree<E extends Comparable<E>> extends AbstractBinaryTre
         // set all to null
         node.setLeft(null);
         node.setRight(null);
-        node.setParent(node);
 
         // return deleted data
         return temp;
     }
 
+    @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
-        for (Position<E> p : positions()) {
-            sb.append(p.getElement());
-            sb.append(", ");
+        String ret = "[";
+        for(Position<E> x : positions()) {
+            ret += x.getElement() + ", ";
         }
-        sb.append("]");
-        return sb.toString();
+
+        ret = ret.substring(0, ret.length()-2);
+        ret += "]";
+
+        return ret;
     }
 
     public void createLevelOrder(E x[]) {
+        root = createLevelOrderHelper(x, root, 0);
+    }
 
-
+    private Node<E> createLevelOrderHelper(E[] arr, Node<E> p, int i) {
+        if (i < arr.length) {
+            Node<E> n = createNode(arr[i], p, null, null);
+            n.left = createLevelOrderHelper(arr, n.left, 2 * i + 1);
+            n.right = createLevelOrderHelper(arr, n.right, 2 * i + 2);
+            ++size;
+            return n;
+        }
+        return p;
     }
 
     public static void main(String[] args) {

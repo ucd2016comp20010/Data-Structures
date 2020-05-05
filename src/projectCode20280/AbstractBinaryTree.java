@@ -84,8 +84,9 @@ public abstract class AbstractBinaryTree<E> extends AbstractTree<E>
    */
   public Iterable<Position<E>> inorder() {
     List<Position<E>> snapshot = new ArrayList<>();
-    if (!isEmpty())
-      inorderSubtree(root(), snapshot);   // fill the snapshot recursively
+    if (!isEmpty()) {
+      inorderSubtree(root(), snapshot);
+    }
     return snapshot;
   }
 
@@ -95,6 +96,26 @@ public abstract class AbstractBinaryTree<E> extends AbstractTree<E>
    */
   @Override
   public Iterable<Position<E>> positions() {
-    return inorder();
+    ArrayList<Position<E>> ret = new ArrayList<>();
+    // fill return list
+    if (!isEmpty()) {
+      inorderSubtree(root(), ret);
+    }
+
+    // return it
+    return ret;
+  }
+
+  @Override
+  public String toString() {
+    String ret = "[";
+    for(Position<E> x : positions()) {
+      ret += x.getElement() + ", ";
+    }
+
+    ret = ret.substring(0, ret.length()-2);
+    ret += "]";
+
+    return ret;
   }
 }

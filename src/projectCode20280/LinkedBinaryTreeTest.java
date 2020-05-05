@@ -53,8 +53,11 @@ class LinkedBinaryTreeTest {
 
 		Integer c = Integer.parseInt("0");
 		bt.addRoot(c);
+
 		bt.addRight(bt.root(), 1);
+
 		Integer old = bt.remove(bt.right(bt.root()));
+
 		assertEquals(old, 1);
 		assertEquals(1, bt.size());
 	}
